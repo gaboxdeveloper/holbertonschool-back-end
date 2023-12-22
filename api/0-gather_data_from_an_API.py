@@ -14,8 +14,7 @@ if __name__ == "__main__":
     todos_url = f"{url}/{employee_id}/todos"
 
     employee_data = requests.get(f"{url}/users/{employee_id}").json()
-
-    todos_data = requests.get(todos_url).json()
+    todos_data = requests.get(f"{url}/users/{employee_id}/todos").json()
 
     completed_tasks = [task for task in todos_data if task["completed"]]
 
