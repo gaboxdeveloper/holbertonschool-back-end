@@ -10,14 +10,14 @@ if __name__ == "__main__":
     """
 
     url = "https://jsonplaceholder.typicode.com"
-    employee_id = int(argv[1])
+    user_id = int(argv[1])
 
-    employee_data = requests.get(f"{url}/users/{employee_id}").json()
-    todos_data = requests.get(f"{url}/users/{employee_id}/todos").json()
+    user_data = requests.get(f"{url}/users/{user_id}").json()
+    todos_data = requests.get(f"{url}/users/{user_id}/todos").json()
 
     completed_tasks = [task for task in todos_data if task["completed"]]
 
-    print(f'Employee {employee_data["name"]} is done with ', end='')
+    print(f'Employee {user_data["name"]} is done with ', end='')
     print(f'tasks({len(completed_tasks)}/{len(todos_data)}):')
 
     for task in completed_tasks:
