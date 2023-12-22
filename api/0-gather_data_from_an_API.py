@@ -11,7 +11,6 @@ if __name__ == "__main__":
 
     url = "https://jsonplaceholder.typicode.com"
     employee_id = int(argv[1])
-    todos_url = f"{url}/{employee_id}/todos"
 
     employee_data = requests.get(f"{url}/users/{employee_id}").json()
     todos_data = requests.get(f"{url}/users/{employee_id}/todos").json()
