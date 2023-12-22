@@ -21,4 +21,4 @@ if __name__ == "__main__":
     print(f'tasks({len(completed_tasks)}/{len(todos_data)}):')
 
     for task in completed_tasks:
-        print("\t " + task["title"])
+        print('    ' + task["title"])
