@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """commenting the module to pass the check"""
 import requests
-import sys
+from sys import argv
 
 
 if __name__ == "__main__":
@@ -10,18 +10,16 @@ if __name__ == "__main__":
     """
 
     url = "https://jsonplaceholder.typicode.com"
-    todos_url = f"{base_url}/{employee_id}/todos"
+    employee_id = int(argv[1])
+    todos_url = f"{url}/{employee_id}/todos"
 
-    employee_response = requests.get(f"{base_url}/{employee_id}")
-    employee_data = employee_response.json()
+    employee_data = requests.get(f"{url}/users/{employee_id}").json()
 
-    todos_response = requests.get(todos_url)
-    todos_data = todos_response.json()
+    todos_data = requests.get(todos_url).json()
 
     completed_tasks = [task for task in todos_data if task["completed"]]
 
-    print(f"Employee {employee_data['name']} is done with tasks
-          ({len(completed_tasks)}/{len(todos_data)}): ")
+    print(f"Employee {employee_data['name']} is done with tasks ({len(completed_tasks)}/{len(todos_data)}): ")
     print(f"{employee_data['name']}:", len(completed_tasks), len(todos_data))
 
     for task in completed_tasks:
