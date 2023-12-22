@@ -5,9 +5,11 @@ import sys
 
 
 if __name__ == "__main__":
-    """function to acces the api"""
+    """
+        access to the api
+    """
 
-    base_url = "https://jsonplaceholder.typicode.com/users"
+    url = "https://jsonplaceholder.typicode.com"
     todos_url = f"{base_url}/{employee_id}/todos"
 
     employee_response = requests.get(f"{base_url}/{employee_id}")
