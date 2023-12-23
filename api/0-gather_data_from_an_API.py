@@ -10,9 +10,9 @@ if __name__ == "__main__":
     """
 
     url = "https://jsonplaceholder.typicode.com"
-    user_id = int(argv[1])
-    user_data = requests.get(url + f'/users/{user_id}').json()
-    user_task = requests.get(url + f'/users/{user_id}/todos').json()
+    employee_id = int(argv[1])
+    user_data = requests.get(url + f'/users/{employee_id}').json()
+    user_task = requests.get(url + f'/users/{employee_id}/todos').json()
 
     completed_tasks = [task for task in user_task if task["completed"]]
 
@@ -20,4 +20,4 @@ if __name__ == "__main__":
     print(f'tasks({len(completed_tasks)}/{len(user_task)}):')
 
     for task in completed_tasks:
-        print('\t' + task["title"])
+        print('\t ' + task["title"])
