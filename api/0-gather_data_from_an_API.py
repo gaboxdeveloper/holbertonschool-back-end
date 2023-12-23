@@ -9,15 +9,15 @@ if __name__ == "__main__":
         access to the api
     """
 
-    url = "https://jsonplaceholder.typicode.com"
+    url = "https://jsonplaceholder.typicode.com/"
     employee_id = int(argv[1])
-    user_data = requests.get(url + f'/users/{employee_id}').json()
-    user_task = requests.get(url + f'/users/{employee_id}/todos').json()
+    employee_data = requests.get(url + f'users/{employee_id}').json()
+    employee_task = requests.get(url + f'users/{employee_id}/todos').json()
 
-    completed_tasks = [task for task in user_task if task["completed"]]
+    completed_tasks = [task for task in employee_task if task["completed"]]
 
-    print(f'Employee {user_data["name"]} is done with ', end='')
-    print(f'tasks({len(completed_tasks)}/{len(user_task)}):')
+    print(f'Employee {employee_data["name"]} is done with ', end='')
+    print(f'tasks({len(completed_tasks)}/{len(employee_task)}):')
 
     for task in completed_tasks:
         print('\t ' + task["title"])
