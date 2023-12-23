@@ -1,24 +1,37 @@
 #!/usr/bin/python3
-"""commenting the module to pass the check"""
+"""
+Program to gather data from an api
+"""
+import json
 import requests
-from sys import argv
+import sys
+
+
+def get_todo_info():
+    """Function to get the info from the api"""
+    user_id = sys.argv[1]
+    r = requests.get('https://jsonplaceholder.typicode.com/users?id={}'
+                     .format(user_id))
+    user = json.loads(r.text)
+    user_name = user[0].get('name')
+
+    r = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'
+                     .format(user_id))
+    todos = json.loads(r.text)
+    comp_tasks = 0
+    comp_titles = []
+    total_tasks = 0
+    for task in todos:
+        total_tasks += 1
+        if task['completed'] is True:
+            comp_tasks += 1
+            comp_titles.append(task.get('title'))
+
+    print("Employee {} is done with tasks({}/{}):"
+          .format(user_name, comp_tasks, total_tasks))
+    for title in comp_titles:
+        print("\t {}".format(title))
 
 
 if __name__ == "__main__":
-    """
-        access to the api
-    """
-
-    url = "https://jsonplaceholder.typicode.com"
-    user_id = int(argv[1])
-
-    user_data = requests.get(url + f'/users/{user_id}').json()
-    todos_data = requests.get(url + f'/users/{user_id}/todos').json()
-
-    completed_tasks = [task for task in todos_data if task["completed"]]
-
-    print(f'Employee {user_data["name"]} is done with ', end='')
-    print(f'tasks({len(completed_tasks)}/{len(todos_data)}):')
-
-    for task in completed_tasks:
-        print('    ' + task["title"])
+    get_todo_info()
