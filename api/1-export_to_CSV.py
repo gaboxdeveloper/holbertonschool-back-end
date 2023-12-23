@@ -1,32 +1,32 @@
 #!/usr/bin/python3
-"""commenting the module to pass the check"""
+"""
+Python script that exports data in the CSV format
+"""
 import csv
-import requests
+from requests import get
 from sys import argv
 
+
 if __name__ == "__main__":
-    """
-        access to the api
-    """
+    response = get('https://jsonplaceholder.typicode.com/todos/')
+    data = response.json()
 
-    url = "https://jsonplaceholder.typicode.com/"
-    employee_id = int(argv[1])
-    employee_data = requests.get(url + f'users/{employee_id}').json()
-    employee_tasks = requests.get(url + f'users/{employee_id}/todos').json()
+    row = []
+    response2 = get('https://jsonplaceholder.typicode.com/users')
+    data2 = response2.json()
 
-    completed_tasks = [task for task in employee_tasks if task["completed"]]
+    for i in data2:
+        if i['id'] == int(argv[1]):
+            employee = i['username']
 
-    print(f'Employee {employee_data["name"]} is done with tasks:')
+    with open(argv[1] + '.csv', 'w', newline='') as file:
+        writ = csv.writer(file, quoting=csv.QUOTE_ALL)
+        for i in data:
+            row = []
+            if i['userId'] == int(argv[1]):
+                row.append(i['userId'])
+                row.append(employee)
+                row.append(i['completed'])
+                row.append(i['title'])
 
-    for task in completed_tasks:
-        print(f'\t[{"" if task["completed"] else "not "}completed] {task["title"]}')
-
-    csv_filename = f'{employee_id}.csv'
-    with open(csv_filename, mode='w', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file)
-        csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-
-        for task in employee_tasks:
-            csv_writer.writerow([employee_id, employee_data["name"], task["completed"], task["title"]])
-
-    print(f'Data exported to {csv_filename}')
+                writ.writerow(row)
