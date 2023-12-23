@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """commenting the module to pass the check"""
-import requests
 import csv
+import requests
 from sys import argv
 
 if __name__ == "__main__":
@@ -26,10 +26,9 @@ if __name__ == "__main__":
     csv_filename = f'{user_id}.csv'
     with open(csv_filename, mode='w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
-        # Write header
+
         csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        
-        # Write data
+
         for task in user_task:
             csv_writer.writerow([user_id, user_data["name"], task["completed"], task["title"]])
 
